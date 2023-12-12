@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Add your CSS styles if needed -->
+    <link rel="stylesheet" href="register.css">
+    
+</head>
+<body>
+    <h1 id="register">REGISTER</h1>
+    <form id="loginForm" onsubmit="authenticate(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        async function authenticate(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+    
+            const data = {
+                username: username,
+                password: password
+            };
+    
+            try {
+                const response = await fetch('http://localhost:8080/api/products/create/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                // No need for responseData, directly check response.ok
+                if (response.ok) {
+                    // Use the confirm function to capture the user's choice
+                    const confirmation = confirm('Do you want to continue?');
+                    if (confirmation) {
+                        window.location.href = 'Login.html';
+                    }
+                } else {
+                    // Handle other response statuses if needed
+                    console.log('Registration failed.');
+                }
+            } catch (error) {
+                console.error('Error during authentication:', error);
+            }
+        }
+    </script>
+    
+</body>
+</html>

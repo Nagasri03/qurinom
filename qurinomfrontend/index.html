@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management UI</title>
+    <style>
+        /* Initially hide all forms */
+        form {
+            display: none;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="index.css">
+     <script src="app.js"></script> 
+</head>
+<body>
+    <h1>Product Management UI</h1>
+    <script>
+        // Check if the user is logged in using session storage
+        const loggedIn = sessionStorage.getItem('loggedIn');
+
+        if (!loggedIn) {
+            // Redirect to login page if not logged in
+            window.location.href = "Login.html";
+        }
+        window.addEventListener('beforeunload', function (event) {
+            // Clear session storage when the user leaves or refreshes the page
+            sessionStorage.removeItem('loggedIn');
+        });
+    </script>
+    <!-- Buttons to trigger forms -->
+    <div class="button-container">
+    <button type="button" onclick="showForm('createProductForm')">Create Product</button>
+    <button type="button" onclick="showForm('likeProductForm')">Like Product</button>
+    <button type="button" onclick="showForm('unlikeProductForm')">Unlike Product</button>
+    <button type="button" onclick="showForm('searchProductForm')">Search</button>
+
+    <button type="button" onclick="showForm('updateProductForm')">Update Product</button>
+</div>
+    <!-- Forms -->
+    <form id="createProductForm">
+        <!-- ... (your form elements) -->
+        <label for="id">Product Id:</label>
+        <input type="number" id="productId" placeholder="Enter product id">
+
+        <label for="name">Product Name:</label>
+        <input type="text" id="productName" placeholder="Enter product name">
+
+        <label for="tag">Product Tag:</label>
+        <input type="text" id="productTag" placeholder="Enter product tag">
+
+        <label for="category">Product Category:</label>
+        <input type="text" id="productCategory" placeholder="Enter product category">
+        <label for="likes">Product Likes:</label>
+        <input type="number" id="productlikes" placeholder="Enter product likes">
+        <button type="button" onclick="createProduct()">Create Product</button>
+        
+    </form>
+
+    <form id="likeProductForm">
+        <!-- ... (your form elements) -->
+        
+        <label for="id">Product Id:</label>
+        <input type="number" id="productId" placeholder="Enter product id">
+
+        <button type="button" onclick="likeProduct()">Like Product</button>
+    </form>
+    <form id="searchProductForm">
+        
+
+        <button type="button" onclick="searchProducts()">Search</button>
+    </form>
+    <form id="unlikeProductForm">
+        <!-- ... (your form elements) -->
+        <label for="id">Product Id:</label>
+        <input type="number" id="UnlikeproductId" placeholder="Enter product id">
+
+        <button type="button" onclick="unlikeProduct()">Unlike Product</button>
+    </form>
+
+    <form id="updateProductForm">
+        <!-- ... (your form elements) -->
+        <label for="id">Product Id:</label>
+        <input type="number" id="UpdatedproductId" placeholder="Enter product id">
+        <label for="name">Product Name:</label>
+        <input type="text" id="UpdatedproductName" placeholder="Enter product name">
+
+        <label for="tag">Product Tag:</label>
+        <input type="text" id="UpdatedproductTag" placeholder="Enter product tag">
+
+        <label for="category">Product Category:</label>
+        <input type="text" id="UpdatedproductCategory" placeholder="Enter product category">
+        <label for="likes">Product Likes:</label>
+        <input type="number" id="Updatedproductlikes" placeholder="Enter product likes">
+
+        <button type="button" onclick="updateProduct()">Update Product</button>
+    </form>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p id="popupMessage"></p>
+        </div>
+    </div>
+    <script>
+        function showForm(formId) {
+            // Hide all forms
+            document.querySelectorAll('form').forEach(form => {
+                form.style.display = 'none';
+            });
+
+            // Show the selected form
+            const selectedForm = document.getElementById(formId);
+            if (selectedForm) {
+                selectedForm.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
